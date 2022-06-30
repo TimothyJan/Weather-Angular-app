@@ -6,7 +6,6 @@ import { WeatherFormComponent } from 'projects/lib/src/lib/weather-form/weather-
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LibService } from 'lib';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -20,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     WeatherFormComponent,
   ],
-  providers: [LibService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

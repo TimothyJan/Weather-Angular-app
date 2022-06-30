@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LibService } from '../lib.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { HighlightDirective } from './highlight.directive';
+import { HighlightDirective } from '../highlight.directive';
+import { LibService } from './lib.service';
 
 @Component({
   standalone: true,
@@ -20,6 +20,7 @@ export class WeatherFormComponent implements OnInit {
   allDegreeScales = ['Fahrenheit', 'Celsius', 'Kelvin'];
   degreeScale:string = null;
   locationDisplayed:string = null;
+  errorMessage:string = "ERROR";
 
   constructor(private formBuilder: FormBuilder, private libService: LibService) { }
 
@@ -33,20 +34,28 @@ export class WeatherFormComponent implements OnInit {
   sendToAPI(formValues){
     console.log(formValues);
 
+    // for HTML Display
+    this.locationDisplayed = formValues.location;
+    this.degreeScale = formValues.degreeScale;
+
     // for loading spinner
     this.isLoading=true;
-
-    this.locationDisplayed = formValues.location;
-
-    // recipe detailsside
-    this.degreeScale = formValues.degreeScale;
 
     // Service location and send weather data to weather-details component
     this.libService.getWeather(formValues.location, formValues.degreeScale)
       .subscribe(data => {
         this.weatherData = data;
         console.log(this.weatherData);
+
+        if(this.errorMessage!==null){
+          this.errorMessage = null;
+        }
+
         // Stop loading spinner
+        this.isLoading = false;
+      },
+      error => {
+        this.errorMessage = "Location not found! Please enter a valid location!"
         this.isLoading = false;
       }
 

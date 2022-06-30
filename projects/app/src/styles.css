@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* .container{
-  padding: 2.5% 2.5% 2.5% 2.5%;
-} */
+html{
+  background-image: url('../src/assets/CloudBackground.png');
+  width: auto;
+  height: auto;
+}
