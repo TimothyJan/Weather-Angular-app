@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibService } from '../lib.service';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { HighlightDirective } from './highlight.directive';
@@ -12,37 +12,44 @@ import { HighlightDirective } from './highlight.directive';
   styleUrls: ['./weather-form.component.css'],
   imports: [ReactiveFormsModule, CommonModule, HighlightDirective, LoadingSpinnerComponent],
 })
+
 export class WeatherFormComponent implements OnInit {
   public weatherSearchForm: FormGroup;
   weatherData: any;
-  locationDisplayed: string;
   isLoading = false;
-  fahrenheitOrCelsius = "C";
+  allDegreeScales = ['Fahrenheit', 'Celsius', 'Kelvin'];
+  degreeScale:string = null;
+  locationDisplayed:string = null;
 
   constructor(private formBuilder: FormBuilder, private libService: LibService) { }
 
   ngOnInit(): void {
-    this.weatherSearchForm = this.formBuilder.group({
-      location: ['']
+    this.weatherSearchForm = new FormGroup({
+      'location': new FormControl(null, [Validators.required]),
+      'degreeScale': new FormControl(null, [Validators.required]),
     });
   }
 
   sendToAPI(formValues){
-    // update location displayed
-    this.locationDisplayed = formValues.location;
-
-    //update fahrenheitOrCelsius
-    this.fahrenheitOrCelsius = this.libService.fahrenheitOrCelsius;
+    console.log(formValues);
 
     // for loading spinner
     this.isLoading=true;
 
+    this.locationDisplayed = formValues.location;
+
+    // recipe detailsside
+    this.degreeScale = formValues.degreeScale;
+
     // Service location and send weather data to weather-details component
-    this.libService.getWeather(formValues.location)
+    this.libService.getWeather(formValues.location, formValues.degreeScale)
       .subscribe(data => {
         this.weatherData = data;
         console.log(this.weatherData);
+        // Stop loading spinner
         this.isLoading = false;
-      });
+      }
+
+      );
   }
 }
