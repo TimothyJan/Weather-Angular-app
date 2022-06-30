@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HighlightDirective } from '../directives/highlight.directive';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { HighlightDirective } from '../highlight.directive';
 import { LibService } from './lib.service';
 
 @Component({
@@ -17,10 +17,11 @@ export class WeatherFormComponent implements OnInit {
   public weatherSearchForm: FormGroup;
   weatherData: any;
   isLoading = false;
+  locationDisplayed:string = null;
   allDegreeScales = ['Fahrenheit', 'Celsius', 'Kelvin'];
   degreeScale:string = null;
-  locationDisplayed:string = null;
-  errorMessage:string = "ERROR";
+  degreeUnits:string = null;
+  errorMessage:string = null;
 
   constructor(private formBuilder: FormBuilder, private libService: LibService) { }
 
@@ -37,6 +38,7 @@ export class WeatherFormComponent implements OnInit {
     // for HTML Display
     this.locationDisplayed = formValues.location;
     this.degreeScale = formValues.degreeScale;
+    this.degreeUnits = this.unitDisplay(this.degreeScale);
 
     // for loading spinner
     this.isLoading=true;
@@ -44,12 +46,13 @@ export class WeatherFormComponent implements OnInit {
     // Service location and send weather data to weather-details component
     this.libService.getWeather(formValues.location, formValues.degreeScale)
       .subscribe(data => {
-        this.weatherData = data;
-        console.log(this.weatherData);
-
+        // Check for Error Messages
         if(this.errorMessage!==null){
           this.errorMessage = null;
         }
+
+        this.weatherData = data;
+        console.log(this.weatherData);
 
         // Stop loading spinner
         this.isLoading = false;
@@ -58,7 +61,24 @@ export class WeatherFormComponent implements OnInit {
         this.errorMessage = "Location not found! Please enter a valid location!"
         this.isLoading = false;
       }
+    );
+  }
 
-      );
+  unitDisplay(degreeScale:string){
+    // Units for HTML display using innerHTML
+    switch(degreeScale){
+      case 'Fahrenheit':{
+        return "&#8457;";
+      }
+      case 'Celsius':{
+        return "&#8451;";
+      }
+      case 'Kelvin':{
+        return "&#8490;";
+      }
+      default:{
+        return "&#8457;";
+      }
+    }
   }
 }

@@ -2,10 +2,25 @@
 .center{
   margin: 0;
   position: absolute;
-  top: 25%;
+  top: 40%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+h3{
+  font-size: 2rem;
+}
+
+.temperatureDisplay{
+  font-size: 5rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+p{
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 
