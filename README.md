@@ -12,7 +12,7 @@ Requirements
     </ul>
   <li>In library project all weather components need to be placed.</li>
     <ul>
-      <li><code>weather-form.component.ts</code> displays a form and when the form is submitted the weather details are displayed or an error message is produced. It also uses component <code>loading-spinner.component.ts</code> to display a loading spinner when HTTP request is in progress.</li>
+      <li><code>weather-form.component.ts</code> displays a form and when the form is submitted the weather details are displayed or an error message is produced. It has component <code>header.component.ts</code> for the header and login/signup function. It also uses component <code>loading-spinner.component.ts</code> to display a loading spinner when HTTP request is in progress.</li>
     </ul>
   <li>At least one of the library components need to use a custom angular directive.</li>
       <ul>
@@ -24,7 +24,7 @@ Requirements
     </ul>
   <li>Application need to use the library components.</li>
       <ul>
-        <li>Application uses the <code>weather-form.component.ts</code>and the <code>loading-spinner.component.ts</code></li>
+        <li>Application uses the <code>weather-form.component.ts</code>(which uses <code>header.component.ts</code>)and the <code>loading-spinner.component.ts</code></li>
     </ul>
 </ul>
 

@@ -4,8 +4,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LibService {
+export class OpenWeatherService {
 
+  // Add as environment variable
   APIKey="d65c54c5da8ab0f389b2756d244d7202";
   //https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&appid=d65c54c5da8ab0f389b2756d244d7202&units=imperial
   //https://api.openweathermap.org/data/2.5/weather?q=Los Angeles&appid=d65c54c5da8ab0f389b2756d244d7202&units=metric

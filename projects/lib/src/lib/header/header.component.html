@@ -1,16 +1,123 @@
-<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#">Weather App</a>
 
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Favorites
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Weather App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
-      <a class="dropdown-item" href="#">Something else here</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Favorites
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">Location 1</a></li>
+              <li><a class="dropdown-item" href="#">Location 2</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <!-- <a class="nav-link active" aria-current="page">Login/Signup</a> -->
+          <!-- Click on Modal Button -->
+          <button type="button" class="btn btn-primary mx-auto d-block" data-bs-toggle="modal" data-bs-target="#modalForm">
+            Login/Signup
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
-
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+        <mdb-tabs [pills]="true" class="nav-justified">
+
+          <!-- Login -->
+          <mdb-tab title="Login">Login
+            <form #loginForm="ngForm" (ngSubmit)="onLoginSubmit(loginForm)">
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  id="loginEmail"
+                  class="form-control"
+                  ngModel
+                  name="email"
+                  required
+                  email/>
+                <label class="form-label" for="loginName">Email</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  id="loginPassword"
+                  class="form-control"
+                  ngModel
+                  name="password"
+                  required
+                  minlength="6"/>
+                <label class="form-label" for="loginPassword">Password</label>
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                class="btn btn-primary btn-block mb-4"
+                [disabled]="!loginForm.valid">
+                Sign in</button>
+
+            </form>
+          </mdb-tab>
+
+          <!-- Register  -->
+          <mdb-tab title="Register">Register
+            <form  #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)">
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="email"
+                  id="registerEmail"
+                  class="form-control"
+                  ngModel
+                  name="email"
+                  required
+                  email/>
+                <label class="form-label" for="registerEmail">Email</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  id="registerPassword"
+                  class="form-control"
+                  ngModel
+                  name="password"
+                  required
+                  minlength="6"/>
+                <label class="form-label" for="registerPassword">Password</label>
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                class="btn btn-primary btn-block mb-3"
+                [disabled]="!registerForm.valid">
+                Sign in</button>
+            </form>
+          </mdb-tab>
+        </mdb-tabs>
+    </div>
+  </div>
+</div>
+

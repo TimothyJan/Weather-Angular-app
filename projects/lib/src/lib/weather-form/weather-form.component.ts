@@ -2,15 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HighlightDirective } from '../directives/highlight.directive';
+import { HeaderComponent } from '../header/header.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
-import { LibService } from './lib.service';
+import { OpenWeatherService } from './openWeather.service';
 
 @Component({
   standalone: true,
   selector: 'lib-weather-form',
   templateUrl: './weather-form.component.html',
   styleUrls: ['./weather-form.component.css'],
-  imports: [ReactiveFormsModule, CommonModule, HighlightDirective, LoadingSpinnerComponent],
+  imports: [ReactiveFormsModule, CommonModule, HighlightDirective, LoadingSpinnerComponent, HeaderComponent],
 })
 
 export class WeatherFormComponent implements OnInit {
@@ -23,7 +24,7 @@ export class WeatherFormComponent implements OnInit {
   degreeUnits:string = null;
   errorMessage:string = null;
 
-  constructor(private formBuilder: FormBuilder, private libService: LibService) { }
+  constructor(private formBuilder: FormBuilder, private openWeatherService: OpenWeatherService) { }
 
   ngOnInit(): void {
     this.weatherSearchForm = new FormGroup({
@@ -44,7 +45,7 @@ export class WeatherFormComponent implements OnInit {
     this.isLoading=true;
 
     // Service location and send weather data to weather-details component
-    this.libService.getWeather(formValues.location, formValues.degreeScale)
+    this.openWeatherService.getWeather(formValues.location, formValues.degreeScale)
       .subscribe(data => {
         // Check for Error Messages
         if(this.errorMessage!==null){
