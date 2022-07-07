@@ -8,11 +8,9 @@ import { MdbTabsModule } from 'mdb-angular-ui-kit/tabs';
   selector: 'lib-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, MdbTabsModule],
+  imports: [CommonModule, FormsModule, MdbTabsModule],
 })
 export class HeaderComponent implements OnInit {
-  collapsed = true;
-  closeResult = '';
 
   constructor() { }
 
